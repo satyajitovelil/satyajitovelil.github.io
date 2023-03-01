@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Hugo on Satyajit Ovelil&#39;s Website</title>
-    <link>http://www.example.com/series/hugo/</link>
+    <link>https://satyajitovelil.github.io/series/hugo/</link>
     <description>Recent content in Hugo on Satyajit Ovelil&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/series/hugo/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 20 Mar 2019 00:00:00 +0000</lastBuildDate><atom:link href="https://satyajitovelil.github.io/series/hugo/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Render LaTeX using KaTeX</title>
-      <link>http://www.example.com/posts/render-latex-using-katex/</link>
+      <link>https://satyajitovelil.github.io/posts/render-latex-using-katex/</link>
       <pubDate>Wed, 20 Mar 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://www.example.com/posts/render-latex-using-katex/</guid>
+      <guid>https://satyajitovelil.github.io/posts/render-latex-using-katex/</guid>
       <description>Enable katex by adding katex = &amp;quot;true&amp;quot; to the front matter
 +++ katex = &amp;#34;true&amp;#34; +++ If you want to enable KaTeX or MathJax for all post, add katex = ture or math = true in config.toml in [params] section.
 It&amp;rsquo;s almost a dropin alternative to the mathjax solution,you should just choose one of them.
@@ -22,19 +22,19 @@ This is text with inline math $\sum_{n=1}^{\infty} 2^{-n} =1$ This is text with 
     
     <item>
       <title>Hugo coder wiki</title>
-      <link>http://www.example.com/posts/hugo-coder-wiki/</link>
+      <link>https://satyajitovelil.github.io/posts/hugo-coder-wiki/</link>
       <pubDate>Thu, 17 Jan 2019 00:00:00 +0000</pubDate>
       
-      <guid>http://www.example.com/posts/hugo-coder-wiki/</guid>
+      <guid>https://satyajitovelil.github.io/posts/hugo-coder-wiki/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Theme Demo</title>
-      <link>http://www.example.com/posts/theme-demo/</link>
+      <link>https://satyajitovelil.github.io/posts/theme-demo/</link>
       <pubDate>Sun, 08 Jan 2017 00:00:00 +0000</pubDate>
       
-      <guid>http://www.example.com/posts/theme-demo/</guid>
+      <guid>https://satyajitovelil.github.io/posts/theme-demo/</guid>
       <description>Style Demo h1 Heading h2 Heading h3 Heading h4 Heading h5 Heading h6 Heading  This is bold text
 This is bold text
 This is italic text
@@ -47,20 +47,20 @@ $$ \sum_{n=1}^{\infty} 2^{-n} = 1 $$
     
     <item>
       <title>(Hu)go Template Primer</title>
-      <link>http://www.example.com/posts/hugo-template-primer/</link>
+      <link>https://satyajitovelil.github.io/posts/hugo-template-primer/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://www.example.com/posts/hugo-template-primer/</guid>
+      <guid>https://satyajitovelil.github.io/posts/hugo-template-primer/</guid>
       <description>Hugo uses the excellent go html/template library for its template engine. It is an extremely lightweight engine that provides a very small amount of logic. In our experience that it is just the right amount of logic to be able to create a good static website. If you have used other template systems from different languages or frameworks you will find a lot of similarities in go templates.
 This document is a brief primer on using go templates.</description>
     </item>
     
     <item>
       <title>Getting Started with Hugo</title>
-      <link>http://www.example.com/posts/hugoisforlovers/</link>
+      <link>https://satyajitovelil.github.io/posts/hugoisforlovers/</link>
       <pubDate>Wed, 02 Apr 2014 00:00:00 +0000</pubDate>
       
-      <guid>http://www.example.com/posts/hugoisforlovers/</guid>
+      <guid>https://satyajitovelil.github.io/posts/hugoisforlovers/</guid>
       <description>Step 1. Install Hugo Goto hugo releases and download the appropriate version for your os and architecture.
 Save it somewhere specific as we will be using it in the next step.
 More complete instructions are available at installing hugo
