@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Project Summaries on Satyajit Ovelil&#39;s Website</title>
+    <link>http://www.example.com/series/project-summaries/</link>
+    <description>Recent content in Project Summaries on Satyajit Ovelil&#39;s Website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en</language>
+    <lastBuildDate>Wed, 01 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="http://www.example.com/series/project-summaries/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>NYC Electricity Demand Forecasting</title>
+      <link>http://www.example.com/posts/nyc-electricity-demand-forecasting/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>http://www.example.com/posts/nyc-electricity-demand-forecasting/</guid>
+      <description>NYC Night Lights
+   Electricity demand forecasting is a crucial task in the energy industry as it helps energy providers plan for supply and demand and avoid any potential shortage or surplus. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. For this Project I wanted to analyze the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions: What effect does date &amp;amp; time play in influencing daily electricity demand in NYC?</description>
+    </item>
+    
+  </channel>
+</rss>
