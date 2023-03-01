@@ -17,10 +17,10 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://satyajitovelil.github.io/images/NYC_NightLights.jpg"/>
 
-<meta name="twitter:title" content="NYC Electricity Demand Forecasting"/>
+<meta name="twitter:title" content="NYC Electricity Demand Forecasting (WIP)"/>
 <meta name="twitter:description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electrcity Demand for NYC"/>
 
-    <meta property="og:title" content="NYC Electricity Demand Forecasting" />
+    <meta property="og:title" content="NYC Electricity Demand Forecasting (WIP)" />
 <meta property="og:description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electrcity Demand for NYC" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/" />
@@ -35,7 +35,7 @@
       <base href="https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/">
     
     <title>
-  NYC Electricity Demand Forecasting · Satyajit Ovelil&#39;s Website
+  NYC Electricity Demand Forecasting (WIP) · Satyajit Ovelil&#39;s Website
 </title>
 
     
@@ -129,7 +129,7 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">NYC Electricity Demand Forecasting</h1>
+          <h1 class="title">NYC Electricity Demand Forecasting (WIP)</h1>
         </div>
         <div class="post-meta">
           <div class="date">
@@ -141,7 +141,7 @@
             </span>
             <span class="reading-time">
               <i class="fas fa-clock"></i>
-              2-minute read
+              3-minute read
             </span>
           </div>
           
@@ -174,6 +174,41 @@ In addition to machine learning algorithms, visualizations have been used to und
 <hr>
 <p>The Daily, Weekly and other seasonal patterns can be visualized by plotting the time series data grouped by different temporal categories. We can also use statistical techniques such as STL (Seasonal-Trend decomposition using LOESS) to extract various trend and seasonal patterns and then plot the same to understand the importance of the patterns. 
 We will first have a look at the seasonal or cyclic patterns that appear in the data that can be attributed to temporal features like time of day, day of the week, month, etc.</p>
+<p>The following Plots let us understand the electricity demand trends varying by hour and by month: 
+<figure>
+    <img src="https://satyajitovelil.github.io/images/Hourly_Pattern.png"
+         alt="Hourly Trend"/> <figcaption>
+            <p>Hourly Trend</p>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="https://satyajitovelil.github.io/images/Monthly_Pattern.png"
+         alt="Monthly Trend"/> <figcaption>
+            <p>Monthly Trend</p>
+        </figcaption>
+</figure>
+</p>
+<p>Each Day follows a certain pattern across different Hours grouped by month.
+<figure>
+    <img src="https://satyajitovelil.github.io/images/hourly-all-days-by-month.png"
+         alt="Hourly Trend across Days grouped by month"/> <figcaption>
+            <p>Hourly Trend across Days grouped by month</p>
+        </figcaption>
+</figure>
+</p>
+<p>Interestingly enough each hour follows a certain pattern across different days grouped by month. 
+<figure>
+    <img src="https://satyajitovelil.github.io/images/daily-all-hours-by-month.png"
+         alt="Daily Trend for all hours grouped by month"/> <figcaption>
+            <p>Daily Trend for all hours grouped by month</p>
+        </figcaption>
+</figure>
+</p>
+<p>We can safely conclude that there are seasonal patterns that can be attributed to which month in the year it is. This can be due to winter and summer seasons. The hourly trend can also be attributed to the nature of a typical workday; From midnight to early hours of the morning the electrcity consumed would be less. And as the day goes on, daily activities and/or business starts picking back up leading to more and more electricity being consumed.
+So far the plots above explain hourly trends, workday trends as well as monthly patterns. While it is fairly easy to build a forecasting model using this information alone. We still need an indicator or a variable that explains day to day variation. It&rsquo;s also evident that some of the variation can&rsquo;t simply be explained as being influenced by factors that closely change with temporal variables.</p>
+<p>A look at other variables that might influence the consumer behaviour when it comes to electrcity would be required; we will be looking at weather.</p>
+<hr>
 
       </div>
 
