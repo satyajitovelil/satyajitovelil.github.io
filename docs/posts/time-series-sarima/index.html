@@ -15,16 +15,16 @@
     
 
     <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://satyajitovelil.github.io/images/TS-post-header.jpg"/>
+<meta name="twitter:image" content="https://satyajitovelil.github.io/images/TS-post-header.png"/>
 
-<meta name="twitter:title" content="Time Series Analysis - Part 0"/>
+<meta name="twitter:title" content="Time Series Analysis - Part 2"/>
 <meta name="twitter:description" content="The post talks about basics of time series analysis"/>
 
-    <meta property="og:title" content="Time Series Analysis - Part 0" />
+    <meta property="og:title" content="Time Series Analysis - Part 2" />
 <meta property="og:description" content="The post talks about basics of time series analysis" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://satyajitovelil.github.io/posts/time-series-cleaning/" />
-<meta property="og:image" content="https://satyajitovelil.github.io/images/TS-post-header.jpg" />
+<meta property="og:url" content="https://satyajitovelil.github.io/posts/time-series-sarima/" />
+<meta property="og:image" content="https://satyajitovelil.github.io/images/TS-post-header.png" />
 <meta property="article:published_time" content="2023-03-02T00:00:00+00:00" />
 <meta property="article:modified_time" content="2023-03-02T00:00:00+00:00" />
 
@@ -32,14 +32,14 @@
 
 
     
-      <base href="https://satyajitovelil.github.io/posts/time-series-cleaning/">
+      <base href="https://satyajitovelil.github.io/posts/time-series-sarima/">
     
     <title>
-  Time Series Analysis - Part 0 · Satyajit Ovelil&#39;s Website
+  Time Series Analysis - Part 2 · Satyajit Ovelil&#39;s Website
 </title>
 
     
-      <link rel="canonical" href="https://satyajitovelil.github.io/posts/time-series-cleaning/">
+      <link rel="canonical" href="https://satyajitovelil.github.io/posts/time-series-sarima/">
     
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
@@ -129,7 +129,7 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">Time Series Analysis - Part 0</h1>
+          <h1 class="title">Time Series Analysis - Part 2</h1>
         </div>
         <div class="post-meta">
           <div class="date">
@@ -141,7 +141,7 @@
             </span>
             <span class="reading-time">
               <i class="fas fa-clock"></i>
-              3-minute read
+              4-minute read
             </span>
           </div>
           
@@ -151,46 +151,87 @@
 
       <div>
         
-        <h3 id="time-series-analysis-part-0-data-cleaning">Time Series Analysis Part 0: Data Cleaning</h3>
+        <h3 id="time-series-analysis-part-2-sarima">Time Series Analysis Part 2: SARIMA</h3>
 <p>This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data.
-This part will take you through the basics of cleaning the data.</p>
+This part will serve as a quick guide to analyse time series components.</p>
 <hr>
-<p>We are going to deal with the most common problem in time series data when it is tabular; missing rows.
-A mistake that all beginners make is that they check for missing values and find that there are no missing values. However, given the granularity or frequency of the data some of the rows or records themselves might be missing.</p>
-<p>Let me provide you with an example:
-Let&rsquo;s say the frequency of your data is daily, meaning for a particular month there should be 30 or 31 values depending on which month it is. Now you may group the data by months and check the count; if it&rsquo;s less than 30 or 31 you know there is a missing row.</p>
-<hr>
-<p>However there&rsquo;s a better way and one that can be generalised to any and all frequencies. All it takes is date-time functionality of python\pandas and an understanding of how joins work.</p>
-<p>Here&rsquo;s a snippet:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">def check_missing_records(df, datetime_col, freq):
-    &#39;&#39;&#39;
-    Creates a DatFrame with missing datetime rows (if any) added &amp; missing rows info. 
-    Args:
-        df: the dataframe with potentially missing datetime rows.
-        datetime_col: the name of the datetime column in the df to check missing periods. 
-    Returns:
-        the reconstituted df with missing rows added back.
-    &#39;&#39;&#39;
-    hold = pd.date_range(start=df[datetime_col].min(),end=df[datetime_col].max(),freq=freq)
-    hold = pd.DataFrame(hold, columns=[&#39;datetime&#39;])
-    reconstituted_df = pd.merge(hold, df, how=&#39;left&#39;, left_on=&#39;datetime&#39;, right_on=datetime_col)
-    missing_datetime_info = reconstituted_df.isnull().sum()
-    return reconstituted_df, missing_datetime_info
-</code></pre></div><p>The function works by left-joining the dataframe with a newly constructed dataframe that only has a date-time column containing the range of values starting from the earliest timestamp and ending at the latest timestamp with the frequency from the original dataframe.
-Note that the above function returns two objects: the dataframe left joined with an index constructed from the range of smallest timestamp to the largest timestamp &amp; the sum of all missing values across different series found in this new df.
-One can modify the function to return just the reconstituted df.</p>
-<p>Once you have done this you might end up with some thing like the following:</p>
-<figure>
-    <img src="https://satyajitovelil.github.io/images/ts-missing-vals.png"
-         alt="Time Series Missing Values"/> <figcaption>
-            <p>Time Series Missing Values</p>
-        </figcaption>
-</figure>
-
-<p>The above image shows the missing periods in a time series with a 24 hours frequency. It&rsquo;s safe to interpolate the dates for which only a few timeblocks are missing. Here&rsquo;s a snippet of how to do that using pandas (The method is essentially a wrapper around interpolation techniques provided by scipy).</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">df[&#39;target&#39;].interpolate(inplace=True)
-</code></pre></div><p>However the dates for which almost the entire data is missing it would be safe to substitute with the mean of for that time period; decided by considering the hourly, daily, weekly or monthly pattern.
-You can head over to Part 1 where we will visualise the data in order to drill down and see such patterns.</p>
+<p>Time series analysis is a powerful technique that can help you forecast future values based on historical data. To get started, you&rsquo;ll want to analyse the components of your time series. Here&rsquo;s a quick guide on how to do that:</p>
+<h5 id="step-1-check-for-stationarity">Step 1: Check for stationarity</h5>
+<p>A stationary time series is one where the mean, variance, and autocorrelation structure do not change over time. A common way to check stationarity is to use the Augmented Dickey-Fuller (ADF) test or the Kwiatkowski-Phillips-Schmidt-Shin (KPSS) test.</p>
+<blockquote>
+<p>Quick tip for adf test:</p>
+<ul>
+<li>
+<p>If p-value &lt; 0.05(significance level) then reject null hypothesis ==&gt; series is staionary.</p>
+</li>
+<li>
+<p>If p-value &gt; 0.05 then fail to reject the null hypothesis ==&gt; series not stationary.</p>
+</li>
+</ul>
+</blockquote>
+<p>If it&rsquo;s not stationary, it can be made stationary through techniques such as <em>differencing</em>, <em>detrending</em>, or <em>deseasonalizing</em>:</p>
+<ol>
+<li>Differencing involves subtracting the current observation from the previous observation, which removes the trend component.</li>
+<li>Detrending involves fitting a linear regression model to the time series and subtracting the trend component from the data.</li>
+<li>Deseasonalizing involves removing the seasonal component from the time series, which can be done through seasonal differencing or seasonal decomposition.</li>
+</ol>
+<h5 id="step-2-determine-the-type-of-process">Step 2: Determine the type of process</h5>
+<p>Use ACF and PACF plots to determine the type of process: Autocorrelation Function (ACF) and Partial Autocorrelation Function (PACF) plots can help you determine whether your time series is an autoregressive (AR), moving average (MA), or a combination of both (ARMA) process.</p>
+<blockquote>
+<p>TLDR;</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">Process</th>
+<th style="text-align:center">AR(p)</th>
+<th style="text-align:center">MA(q)</th>
+<th style="text-align:center">ARMA(p,q)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">PACF</td>
+<td style="text-align:center">Cuts-off (after pth lag)</td>
+<td style="text-align:center">Infinite, Tails Off, Dominated by Damped Exponentials &amp; Sinusoidal</td>
+<td style="text-align:center">Infinite, Tails Off, Dominated by Damped Exponentials &amp; Sinusoidal</td>
+</tr>
+<tr>
+<td style="text-align:center">ACF</td>
+<td style="text-align:center">Infinite, Tails Off, Damped Exponentials and/or Sinusoidal</td>
+<td style="text-align:center">Cuts-off (after qth lag)</td>
+<td style="text-align:center">Infinite, Tails Off, Damped Exponentials and/or Sinusoidal</td>
+</tr>
+</tbody>
+</table>
+</blockquote>
+<ol>
+<li>
+<p>For an AR process, the ACF plot will show a slowly decaying pattern (tails off), while the PACF plot will show a sharp cutoff after a certain lag. The lag where the PACF plot cuts off can help determine the order of the AR process. Significant spikes might be observed at Pth lag in PACF plot. Also note that the ACF might show a sinusoidal pattern.</p>
+</li>
+<li>
+<p>For an MA process, the ACF plot will show a sharp cutoff after a certain lag, while the PACF plot will show a slowly decaying pattern (tails off). The lag where the ACF plot cuts off can help determine the order of the MA process. Significant spikes might be observed at Pth lag in ACF plot. Also note that the PACF might show a sinusoidal pattern.</p>
+</li>
+<li>
+<p>If both plots show significant spikes at lag P and gradual decay, your time series may be an ARMA process. It&rsquo;s important to note that sometimes the ACF or PACF plot may have a sinusoidal pattern, indicating a seasonal component in the time series. In such cases, it may be necessary to analyse the lags of the seasonal component separately using seasonal ACF and PACF plots.</p>
+</li>
+</ol>
+<h5 id="step-3-analyse-seasonal-patterns">Step 3: Analyse seasonal patterns</h5>
+<p>Analyse seasonal patterns: A seasonal pattern is a repeated pattern that occurs over a fixed time period, such as daily, weekly, or monthly. A common tool for analysing seasonal patterns is the seasonal decomposition plot, which breaks down the time series into its trend, seasonal, and residual components.</p>
+<ol>
+<li>
+<p>To create a seasonal decomposition plot, you can use the <code>seasonal_decompose</code> function from the statsmodels library in Python.This function decomposes the time series into its components and returns them in a convenient format. You can then plot these components using the <code>plot</code> method to visualise the seasonal pattern in the data.</p>
+</li>
+<li>
+<p>You can then apply the same methodology\steps outlined in step 2 to analyse what kind of process the seasonal component follows.</p>
+</li>
+</ol>
+<p>By following these steps, you can quickly analyse the components of your time series and start building models to forecast future values. However, it&rsquo;s important to note that further analysis and model selection may be necessary to accurately forecast the time series.</p>
+<p><strong>References:</strong></p>
+<ul>
+<li>You may refer to this <a href="https://towardsdatascience.com/achieving-stationarity-with-time-series-data-abd59fd8d5a0">article</a> for further info on stationarity and how to make your time series stationary.</li>
+<li><a href="https://medium.com/@ooemma83/how-to-interpret-acf-and-pacf-plots-for-identifying-ar-ma-arma-or-arima-models-498717e815b6">Here&rsquo;s</a> a very short and concise post on medium to help you with acf &amp; pacf plot interpretation.</li>
+<li>You may also refer to this <a href="https://www.baeldung.com/cs/acf-pacf-plots-arma-modeling">article</a> for acf and pacf plot interpretation.</li>
+</ul>
 
       </div>
 
@@ -209,11 +250,11 @@ You can head over to Part 1 where we will visualise the data in order to drill d
         
         
           
-        
-          
             <li>
-              <a href="https://satyajitovelil.github.io/posts/time-series-sarima/">Time Series Analysis - Part 2</a>
+              <a href="https://satyajitovelil.github.io/posts/time-series-cleaning/">Time Series Analysis - Part 0</a>
             </li>
+          
+        
           
         
           
@@ -241,11 +282,11 @@ You can head over to Part 1 where we will visualise the data in order to drill d
         
         
           
-        
-          
             <li>
-              <a href="https://satyajitovelil.github.io/posts/time-series-sarima/">Time Series Analysis - Part 2</a>
+              <a href="https://satyajitovelil.github.io/posts/time-series-cleaning/">Time Series Analysis - Part 0</a>
             </li>
+          
+        
           
         
           

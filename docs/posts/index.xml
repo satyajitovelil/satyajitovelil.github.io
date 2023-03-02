@@ -18,6 +18,16 @@
     </item>
     
     <item>
+      <title>Time Series Analysis - Part 2</title>
+      <link>https://satyajitovelil.github.io/posts/time-series-sarima/</link>
+      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://satyajitovelil.github.io/posts/time-series-sarima/</guid>
+      <description>Time Series Analysis Part 2: SARIMA This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data. This part will serve as a quick guide to analyse time series components.
+ Time series analysis is a powerful technique that can help you forecast future values based on historical data. To get started, you&amp;rsquo;ll want to analyse the components of your time series.</description>
+    </item>
+    
+    <item>
       <title>Time Series Analysis - Part I</title>
       <link>https://satyajitovelil.github.io/posts/time-series-analysis/</link>
       <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
