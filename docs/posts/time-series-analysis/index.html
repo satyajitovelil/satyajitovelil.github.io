@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Language" content="en">
 
     <meta name="author" content="Satyajit Ovelil">
-    <meta name="description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electrcity Demand for NYC">
+    <meta name="description" content="The post talks about basics of time series analysis">
     <meta name="keywords" content="blog,developer,personal">
 
     
@@ -15,31 +15,31 @@
     
 
     <meta name="twitter:card" content="summary_large_image"/>
-<meta name="twitter:image" content="https://satyajitovelil.github.io/images/NYC_NightLights.jpg"/>
+<meta name="twitter:image" content="https://satyajitovelil.github.io/images/TS-post-header.jpg"/>
 
-<meta name="twitter:title" content="NYC Electricity Demand Forecasting (WIP)"/>
-<meta name="twitter:description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electrcity Demand for NYC"/>
+<meta name="twitter:title" content="Time Series Analysis - Part I"/>
+<meta name="twitter:description" content="The post talks about basics of time series analysis"/>
 
-    <meta property="og:title" content="NYC Electricity Demand Forecasting (WIP)" />
-<meta property="og:description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electrcity Demand for NYC" />
+    <meta property="og:title" content="Time Series Analysis - Part I" />
+<meta property="og:description" content="The post talks about basics of time series analysis" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/" />
-<meta property="og:image" content="https://satyajitovelil.github.io/images/NYC_NightLights.jpg" />
-<meta property="article:published_time" content="2023-03-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-03-01T00:00:00+00:00" />
+<meta property="og:url" content="https://satyajitovelil.github.io/posts/time-series-analysis/" />
+<meta property="og:image" content="https://satyajitovelil.github.io/images/TS-post-header.jpg" />
+<meta property="article:published_time" content="2023-03-02T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-03-02T00:00:00+00:00" />
 
 
 
 
     
-      <base href="https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/">
+      <base href="https://satyajitovelil.github.io/posts/time-series-analysis/">
     
     <title>
-  NYC Electricity Demand Forecasting (WIP) · Satyajit Ovelil&#39;s Website
+  Time Series Analysis - Part I · Satyajit Ovelil&#39;s Website
 </title>
 
     
-      <link rel="canonical" href="https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/">
+      <link rel="canonical" href="https://satyajitovelil.github.io/posts/time-series-analysis/">
     
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
@@ -129,14 +129,14 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">NYC Electricity Demand Forecasting (WIP)</h1>
+          <h1 class="title">Time Series Analysis - Part I</h1>
         </div>
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
               <i class="fas fa-calendar"></i>
-              <time datetime='2023-03-01T00:00:00Z'>
-                March 1, 2023
+              <time datetime='2023-03-02T00:00:00Z'>
+                March 2, 2023
               </time>
             </span>
             <span class="reading-time">
@@ -151,64 +151,50 @@
 
       <div>
         
-        <figure>
-    <img src="https://satyajitovelil.github.io/images/NYC_NightLights.jpg"
-         alt="NYC Night Lights"/> <figcaption>
-            <p>NYC Night Lights</p>
-        </figcaption>
-</figure>
+        <h3 id="time-series-analysis-part-i-data-visualization">Time Series Analysis Part I: Data Visualization</h3>
+<p>This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data.
+This part will take you through the basics of visualising the data.</p>
+<hr>
+<p>For your specific case, you can start by creating a line plot of your target variable over time, and then create scatter plots to explore the relationship between your target and the other independent variables that you have included after taking into consideration the potential off various factors to influence your target variable.
+You can also use built-in functions of numpy, pandas to calculate correlation between variables.</p>
+<hr>
+<p>Seaborn provides a great way to visualise your time series data by breaking it down into multiple time series, which can be found <a href="https://seaborn.pydata.org/examples/timeseries_facets.html">here</a>.
+You will also need to group your time series by different temporal categories.</p>
+<p>Here&rsquo;s a snippet of how to do it:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">import matplotlib.pyplot as plt
+import seaborn as sns
 
-<hr>
-<p>Electricity demand forecasting is a crucial task in the energy industry as it helps energy providers plan for supply and demand and avoid any potential shortage or surplus. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. 
-For this Project I wanted to analyze the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions:
-What effect does date &amp; time play in influencing daily electricity demand in NYC?
-What are the Seasonal patterns in the data?</p>
-<ul>
-<li>Do holidays or events play any role?</li>
-<li>How does it vary with day, week, month, etc?
-How viable are traditional ML algorithms in forecasting Day Ahead Electricity Demand?
-How important are NYC Weather Variables as predictors to forecast energy\electricity demand?</li>
-</ul>
-<p>In this project, various machine learning algorithms such as Ridge, Lasso, and LightGBM have been used for day ahead forecasting of electricity demand over a time span of a year. The results of these algorithms have been back-tested and compared to determine the best approach for forecasting. 
-In addition to machine learning algorithms, visualizations have been used to understand the temporal patterns in electricity demand, including daily, weekly, monthly, and seasonal patterns. This comprehensive analysis of electricity demand will help in making informed decisions for the energy industry.</p>
-<hr>
-<p>The Daily, Weekly and other seasonal patterns can be visualized by plotting the time series data grouped by different temporal categories. We can also use statistical techniques such as STL (Seasonal-Trend decomposition using LOESS) to extract various trend and seasonal patterns and then plot the same to understand the importance of the patterns. 
-We will first have a look at the seasonal or cyclic patterns that appear in the data that can be attributed to temporal features like time of day, day of the week, month, etc.</p>
-<p>The following Plots let us understand the electricity demand trends varying by hour and by month: 
-<figure>
-    <img src="https://satyajitovelil.github.io/images/Hourly_Pattern.png"
-         alt="Hourly Trend"/> <figcaption>
-            <p>Hourly Trend</p>
-        </figcaption>
-</figure>
+# Creates a dictionary with months as keys and a particular position (ith row, jth col) in the grid plot as the value
+nrow, ncol = 3, 4
+count = 1
+ar_coord = {}
+for r in range(nrow):
+    for c in range(ncol):
+        ar_coord[count] = (r,c)
+        count+=1
 
-<figure>
-    <img src="https://satyajitovelil.github.io/images/Monthly_Pattern.png"
-         alt="Monthly Trend"/> <figcaption>
-            <p>Monthly Trend</p>
-        </figcaption>
-</figure>
-</p>
-<p>Each Day follows a certain pattern across different Hours grouped by month.
-<figure>
-    <img src="https://satyajitovelil.github.io/images/hourly-all-days-by-month.png"
-         alt="Hourly Trend across Days grouped by month"/> <figcaption>
-            <p>Hourly Trend across Days grouped by month</p>
-        </figcaption>
-</figure>
-</p>
-<p>Interestingly enough each hour follows a certain pattern across different days grouped by month. 
-<figure>
-    <img src="https://satyajitovelil.github.io/images/daily-all-hours-by-month.png"
-         alt="Daily Trend for all hours grouped by month"/> <figcaption>
-            <p>Daily Trend for all hours grouped by month</p>
-        </figcaption>
-</figure>
-</p>
-<p>We can safely conclude that there are seasonal patterns that can be attributed to which month in the year it is. This can be due to winter and summer seasons. The hourly trend can also be attributed to the nature of a typical workday; From midnight to early hours of the morning the electricity consumed would be less. And as the day goes on, daily activities and/or business starts picking back up leading to more and more electricity being consumed.
-So far the plots above explain hourly trends, workday trends as well as monthly patterns. While it is fairly easy to build a forecasting model using this information alone. We still need an indicator or a variable that explains day to day variation. It&rsquo;s also evident that some of the variation can&rsquo;t simply be explained as being influenced by factors that closely change with temporal variables.</p>
-<p>A look at other variables that might influence the consumer behaviour when it comes to electricity would be required; we will be looking at weather.</p>
+# Selects color palette
+color = sns.color_palette(&#34;crest&#34;, n_colors=48)
+
+fig, axes = plt.subplots(nrow, ncol, figsize=(12, 7))
+for i in range(1, 13):
+    ax_coord = ar_coord[i]
+    # Creates a slice of data based on the grouping you want, then pivots the data by segregation you want
+    pivot_df = pd.pivot_table(df[df.month==i], index=&#39;hour&#39;, columns=&#39;day&#39;, values=&#39;target&#39;, margins=True, margins_name=&#39;mean&#39;)
+    pivot_df.drop(&#39;mean&#39;, inplace=True)
+    pivot_df.drop(&#39;mean&#39;, axis=1).plot(title=f&#39;Month {i}&#39;, legend=False, ax=axes[ax_coord[0],ax_coord[1]], sharex=True, sharey=True, color=color[i])
+    pivot_df[[&#39;mean&#39;]].plot(legend=False, ax=axes[ax_coord[0],ax_coord[1]], sharex=True, sharey=True, color=color[-i])
+plt.setp(axes[:, 0], ylabel=&#39;target&#39;)
+plt.show()
+</code></pre></div><p>The above code will help you work with different groupings of your time series data.
+Also, of note is that for higher granularity or temporal resolutions the above code will perfor better than seaborn&rsquo;s example code provided in the link above.</p>
 <hr>
+<p>Additionally, you can also look into decomposition techniques such as STL (Seasonal-Trend decomposition using Loess) or ETS (Error-Trend-Seasonality) to break down the time series into its components like trend, seasonality and residuals. You can use the statsmodel library for this. However that is beyond the scope of this part and we will be delving deeper into statistical analysis for time series in a later part.</p>
+<hr>
+<p>A quick way to realise any overt relationships that are there between your (features) independent variables and your target (dependent variable) is to look at the correlation plot. The .corr() method of pandas for dataframes paired with seaborn&rsquo;s heatmap can help you visualise the aforementioned relationships.</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sns.heatmap(df.corr())
+</code></pre></div><p>You can also have a look at the non-parametric technique called mutual info regression using Scikit-learn&rsquo;s mutual_info_regression() that can be used to calculate mutual information between a continuous target variable and multiple continuous or categorical predictors. Note that this technique doesn&rsquo;t make any assumptions about the underlying probability distribution of the data and can thus be used to identify non-linear relationships between variables.</p>
+<p>Considering the fact that the three sections above both need a fair amount of statistics knowledge, they can&rsquo;t simply be categorised as visualisation techniques. We will cover the theory of these techniques and most importantly usage examples in the subsequent parts of this series.</p>
 
       </div>
 
@@ -227,11 +213,11 @@ So far the plots above explain hourly trends, workday trends as well as monthly 
         
         
           
-            <li>
-              <a href="https://satyajitovelil.github.io/posts/time-series-analysis/">Time Series Analysis - Part I</a>
-            </li>
-          
         
+          
+            <li>
+              <a href="https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/">NYC Electricity Demand Forecasting (WIP)</a>
+            </li>
           
         
         </ul>
