@@ -8,33 +8,13 @@
     <language>en</language>
     <lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://satyajitovelil.github.io/series/blog-articles/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Time Series Analysis - Part 0</title>
-      <link>https://satyajitovelil.github.io/posts/time-series-cleaning/</link>
-      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://satyajitovelil.github.io/posts/time-series-cleaning/</guid>
-      <description>Time Series Analysis Part 0: Data Cleaning This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data. This part will take you through the basics of cleaning the data.
- We are going to deal with the most common problem in time series data when it is tabular; missing rows. A mistake that all beginners make is that they check for missing values and find that there are no missing values.</description>
-    </item>
-    
-    <item>
-      <title>Time Series Analysis - Part 2</title>
+      <title>Time Series Analysis Part 2: SARIMA</title>
       <link>https://satyajitovelil.github.io/posts/time-series-sarima/</link>
       <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
       
       <guid>https://satyajitovelil.github.io/posts/time-series-sarima/</guid>
       <description>Time Series Analysis Part 2: SARIMA This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data. This part will serve as a quick guide to analyse time series components.
  Time series analysis is a powerful technique that can help you forecast future values based on historical data. To get started, you&amp;rsquo;ll want to analyse the components of your time series.</description>
-    </item>
-    
-    <item>
-      <title>Time Series Analysis - Part I</title>
-      <link>https://satyajitovelil.github.io/posts/time-series-analysis/</link>
-      <pubDate>Thu, 02 Mar 2023 00:00:00 +0000</pubDate>
-      
-      <guid>https://satyajitovelil.github.io/posts/time-series-analysis/</guid>
-      <description>Time Series Analysis Part I: Data Visualization This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data. This part will take you through the basics of visualising the data.
- For your specific case, you can start by creating a line plot of your target variable over time, and then create scatter plots to explore the relationship between your target and the other independent variables that you have included after taking into consideration the potential off various factors to influence your target variable.</description>
     </item>
     
     <item>
@@ -45,6 +25,27 @@
       <guid>https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/</guid>
       <description>NYC Night Lights
    Electricity demand forecasting is a crucial task in the energy industry as it helps energy providers plan for supply and demand and avoid any potential shortage or surplus. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. For this Project I wanted to analyze the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions: What effect does date &amp;amp; time play in influencing daily electricity demand in NYC?</description>
+    </item>
+    
+    <item>
+      <title>Time Series Analysis Part 0: Data Cleaning</title>
+      <link>https://satyajitovelil.github.io/posts/time-series-cleaning/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://satyajitovelil.github.io/posts/time-series-cleaning/</guid>
+      <description>Time Series Analysis Part 0: Data Cleaning This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data. This part will take you through the basics of cleaning the data.
+ We are going to deal with the most common problem in time series data when it is tabular; missing rows. A mistake that all beginners make is that they check for missing values and find that there are no missing values.</description>
+    </item>
+    
+    <item>
+      <title>Time Series Analysis Part 1: Data Visualization</title>
+      <link>https://satyajitovelil.github.io/posts/time-series-analysis/</link>
+      <pubDate>Wed, 01 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://satyajitovelil.github.io/posts/time-series-analysis/</guid>
+      <description>Multiple Time Series using Seaborn
+  Time Series Analysis Part I: Data Visualization This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data. This part will take you through the basics of visualising the data.
+ For your specific case, you can start by creating a line plot of your target variable over time, and then create scatter plots to explore the relationship between your target and the other independent variables that you have included after taking into consideration the potential off various factors to influence your target variable.</description>
     </item>
     
   </channel>
