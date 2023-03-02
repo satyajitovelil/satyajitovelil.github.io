@@ -17,13 +17,13 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://satyajitovelil.github.io/images/TS-post-header.jpg"/>
 
-<meta name="twitter:title" content="Time Series Analysis - Part I"/>
+<meta name="twitter:title" content="Time Series Analysis - Part 0"/>
 <meta name="twitter:description" content="The post talks about basics of time series analysis"/>
 
-    <meta property="og:title" content="Time Series Analysis - Part I" />
+    <meta property="og:title" content="Time Series Analysis - Part 0" />
 <meta property="og:description" content="The post talks about basics of time series analysis" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://satyajitovelil.github.io/posts/time-series-analysis/" />
+<meta property="og:url" content="https://satyajitovelil.github.io/posts/time-series-cleaning/" />
 <meta property="og:image" content="https://satyajitovelil.github.io/images/TS-post-header.jpg" />
 <meta property="article:published_time" content="2023-03-02T00:00:00+00:00" />
 <meta property="article:modified_time" content="2023-03-02T00:00:00+00:00" />
@@ -32,14 +32,14 @@
 
 
     
-      <base href="https://satyajitovelil.github.io/posts/time-series-analysis/">
+      <base href="https://satyajitovelil.github.io/posts/time-series-cleaning/">
     
     <title>
-  Time Series Analysis - Part I · Satyajit Ovelil&#39;s Website
+  Time Series Analysis - Part 0 · Satyajit Ovelil&#39;s Website
 </title>
 
     
-      <link rel="canonical" href="https://satyajitovelil.github.io/posts/time-series-analysis/">
+      <link rel="canonical" href="https://satyajitovelil.github.io/posts/time-series-cleaning/">
     
 
     <link href="https://fonts.googleapis.com/css?family=Lato:400,700%7CMerriweather:300,700%7CSource+Code+Pro:400,700&display=swap" rel="stylesheet">
@@ -129,7 +129,7 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">Time Series Analysis - Part I</h1>
+          <h1 class="title">Time Series Analysis - Part 0</h1>
         </div>
         <div class="post-meta">
           <div class="date">
@@ -151,50 +151,46 @@
 
       <div>
         
-        <h3 id="time-series-analysis-part-i-data-visualization">Time Series Analysis Part I: Data Visualization</h3>
+        <h3 id="time-series-analysis-part-0-data-cleaning">Time Series Analysis Part 0: Data Cleaning</h3>
 <p>This is part of a series of posts that aims to capture and compile the knowledge required in order to analyse time series data.
-This part will take you through the basics of visualising the data.</p>
+This part will take you through the basics of cleaning the data.</p>
 <hr>
-<p>For your specific case, you can start by creating a line plot of your target variable over time, and then create scatter plots to explore the relationship between your target and the other independent variables that you have included after taking into consideration the potential off various factors to influence your target variable.
-You can also use built-in functions of numpy, pandas to calculate correlation between variables.</p>
+<p>We are going to deal with the most common problem in time series data when it is tabular; missing rows.
+A mistake that all beginners make is that they check for missing values and find that there are no missing values. However, given the granularity or frequency of the data some of the rows or records themselves might be missing.</p>
+<p>Let me provide you with an example:
+Let&rsquo;s say the frequency of your data is daily, meaning for a particular month there should be 30 or 31 values depending on which month it is. Now you may group the data by months and check the count; if it&rsquo;s less than 30 or 31 you know there is a missing row.</p>
 <hr>
-<p>Seaborn provides a great way to visualise your time series data by breaking it down into multiple time series, which can be found <a href="https://seaborn.pydata.org/examples/timeseries_facets.html">here</a>.
-You will also need to group your time series by different temporal categories.</p>
-<p>Here&rsquo;s a snippet of how to do it:</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">import matplotlib.pyplot as plt
-import seaborn as sns
+<p>However there&rsquo;s a better way and one that can be generalised to any and all frequencies. All it takes is date-time functionality of python\pandas and an understanding of how joins work.</p>
+<p>Here&rsquo;s a snippet:</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">def check_missing_records(df, datetime_col, freq):
+    &#39;&#39;&#39;
+    Creates a DatFrame with missing datetime rows (if any) added &amp; missing rows info. 
+    Args:
+        df: the dataframe with potentially missing datetime rows.
+        datetime_col: the name of the datetime column in the df to check missing periods. 
+    Returns:
+        the reconstituted df with missing rows added back.
+    &#39;&#39;&#39;
+    hold = pd.date_range(start=df[datetime_col].min(),end=df[datetime_col].max(),freq=freq)
+    hold = pd.DataFrame(hold, columns=[&#39;datetime&#39;])
+    reconstituted_df = pd.merge(hold, df, how=&#39;left&#39;, left_on=&#39;datetime&#39;, right_on=datetime_col)
+    missing_datetime_info = reconstituted_df.isnull().sum()
+    return reconstituted_df, missing_datetime_info
+</code></pre></div><p>The function works by left-joining the dataframe with a newly constructed dataframe that only has a date-time column containing the range of values starting from the earliest timestamp and ending at the latest timestamp with the frequency from the original dataframe.
+Note that the above function returns two objects: the dataframe left joined with an index constructed from the range of smallest timestamp to the largest timestamp &amp; the sum of all missing values across different series found in this new df.
+One can modify the function to return just the reconstituted df.</p>
+<p>Once you have done this you might end up with some thing like the following:</p>
+<figure>
+    <img src="https://satyajitovelil.github.io/images/ts-missing-vals.png"
+         alt="Time Series Missing Values"/> <figcaption>
+            <p>Time Series Missing Values</p>
+        </figcaption>
+</figure>
 
-# Creates a dictionary with months as keys and a particular position (ith row, jth col) in the grid plot as the value
-nrow, ncol = 3, 4
-count = 1
-ar_coord = {}
-for r in range(nrow):
-    for c in range(ncol):
-        ar_coord[count] = (r,c)
-        count+=1
-
-# Selects color palette
-color = sns.color_palette(&#34;crest&#34;, n_colors=48)
-
-fig, axes = plt.subplots(nrow, ncol, figsize=(12, 7))
-for i in range(1, 13):
-    ax_coord = ar_coord[i]
-    # Creates a slice of data based on the grouping you want, then pivots the data by segregation you want
-    pivot_df = pd.pivot_table(df[df.month==i], index=&#39;hour&#39;, columns=&#39;day&#39;, values=&#39;target&#39;, margins=True, margins_name=&#39;mean&#39;)
-    pivot_df.drop(&#39;mean&#39;, inplace=True)
-    pivot_df.drop(&#39;mean&#39;, axis=1).plot(title=f&#39;Month {i}&#39;, legend=False, ax=axes[ax_coord[0],ax_coord[1]], sharex=True, sharey=True, color=color[i])
-    pivot_df[[&#39;mean&#39;]].plot(legend=False, ax=axes[ax_coord[0],ax_coord[1]], sharex=True, sharey=True, color=color[-i])
-plt.setp(axes[:, 0], ylabel=&#39;target&#39;)
-plt.show()
-</code></pre></div><p>The above code will help you work with different groupings of your time series data.
-Also, of note is that for higher granularity or temporal resolutions the above code will perfor better than seaborn&rsquo;s example code provided in the link above.</p>
-<hr>
-<p>Additionally, you can also look into decomposition techniques such as STL (Seasonal-Trend decomposition using Loess) or ETS (Error-Trend-Seasonality) to break down the time series into its components like trend, seasonality and residuals. You can use the statsmodel library for this. However that is beyond the scope of this part and we will be delving deeper into statistical analysis for time series in a later part.</p>
-<hr>
-<p>A quick way to realise any overt relationships that are there between your (features) independent variables and your target (dependent variable) is to look at the correlation plot. The .corr() method of pandas for dataframes paired with seaborn&rsquo;s heatmap can help you visualise the aforementioned relationships.</p>
-<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-python" data-lang="python">sns.heatmap(df.corr())
-</code></pre></div><p>You can also have a look at the non-parametric technique called mutual info regression using Scikit-learn&rsquo;s mutual_info_regression() that can be used to calculate mutual information between a continuous target variable and multiple continuous or categorical predictors. Note that this technique doesn&rsquo;t make any assumptions about the underlying probability distribution of the data and can thus be used to identify non-linear relationships between variables.</p>
-<p>Considering the fact that the three sections above both need a fair amount of statistics knowledge, they can&rsquo;t simply be categorised as visualisation techniques. We will cover the theory of these techniques and most importantly usage examples in the subsequent parts of this series.</p>
+<p>The above image shows the missing periods in a time series with a 24 hours frequency. It&rsquo;s safe to interpolate the dates for which only a few timeblocks are missing. Here&rsquo;s a snippet of how to do that using pandas (The method is essentially a wrapper around interpolation techniques provided by scipy).</p>
+<div class="highlight"><pre style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-fallback" data-lang="fallback">df[&#39;target&#39;].interpolate(inplace=True)
+</code></pre></div><p>However the dates for which almost the entire data is missing it would be safe to substitute with the mean of for that time period; decided by considering the hourly, daily, weekly or monthly pattern.
+You can head over to Part 1 where we will visualise the data in order to drill down and see such patterns.</p>
 
       </div>
 
@@ -213,11 +209,11 @@ Also, of note is that for higher granularity or temporal resolutions the above c
         
         
           
-            <li>
-              <a href="https://satyajitovelil.github.io/posts/time-series-cleaning/">Time Series Analysis - Part 0</a>
-            </li>
-          
         
+          
+            <li>
+              <a href="https://satyajitovelil.github.io/posts/time-series-analysis/">Time Series Analysis - Part I</a>
+            </li>
           
         
           
@@ -239,11 +235,11 @@ Also, of note is that for higher granularity or temporal resolutions the above c
         
         
           
-            <li>
-              <a href="https://satyajitovelil.github.io/posts/time-series-cleaning/">Time Series Analysis - Part 0</a>
-            </li>
-          
         
+          
+            <li>
+              <a href="https://satyajitovelil.github.io/posts/time-series-analysis/">Time Series Analysis - Part I</a>
+            </li>
           
         
         </ul>
