@@ -6,7 +6,17 @@
     <description>Recent content in Posts on Satyajit Ovelil&#39;s Website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
-    <lastBuildDate>Thu, 02 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://satyajitovelil.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 21 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://satyajitovelil.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Intro to Electricity Demand Analysis Forecasting</title>
+      <link>https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/</link>
+      <pubDate>Tue, 21 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/</guid>
+      <description>NYC Night Lights
+   Electricity demand forecasting is a crucial task in the energy industry as it helps energy providers plan for supply and demand and avoid any potential shortage or surplus. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. For this Project I wanted to analyse the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions: What effect does date &amp;amp; time play in influencing daily electricity demand in NYC?</description>
+    </item>
+    
     <item>
       <title>Time Series Analysis Part 2: SARIMA</title>
       <link>https://satyajitovelil.github.io/posts/time-series-sarima/</link>

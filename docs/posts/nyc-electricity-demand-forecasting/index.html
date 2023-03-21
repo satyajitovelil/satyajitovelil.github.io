@@ -7,7 +7,7 @@
     <meta http-equiv="Content-Language" content="en">
 
     <meta name="author" content="Satyajit Ovelil">
-    <meta name="description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electrcity Demand for NYC">
+    <meta name="description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electricity Demand for NYC">
     <meta name="keywords" content="blog,developer,personal">
 
     
@@ -17,16 +17,16 @@
     <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://satyajitovelil.github.io/images/NYC_NightLights.jpg"/>
 
-<meta name="twitter:title" content="NYC Electricity Demand Forecasting (WIP)"/>
-<meta name="twitter:description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electrcity Demand for NYC"/>
+<meta name="twitter:title" content="Intro to Electricity Demand Analysis Forecasting"/>
+<meta name="twitter:description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electricity Demand for NYC"/>
 
-    <meta property="og:title" content="NYC Electricity Demand Forecasting (WIP)" />
-<meta property="og:description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electrcity Demand for NYC" />
+    <meta property="og:title" content="Intro to Electricity Demand Analysis Forecasting" />
+<meta property="og:description" content="The post demonstrates modelling approaches to Forecast Day Ahead Electricity Demand for NYC" />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/" />
 <meta property="og:image" content="https://satyajitovelil.github.io/images/NYC_NightLights.jpg" />
-<meta property="article:published_time" content="2023-03-01T00:00:00+00:00" />
-<meta property="article:modified_time" content="2023-03-01T00:00:00+00:00" />
+<meta property="article:published_time" content="2023-03-21T00:00:00+00:00" />
+<meta property="article:modified_time" content="2023-03-21T00:00:00+00:00" />
 
 
 
@@ -35,7 +35,7 @@
       <base href="https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/">
     
     <title>
-  NYC Electricity Demand Forecasting (WIP) · Satyajit Ovelil&#39;s Website
+  Intro to Electricity Demand Analysis Forecasting · Satyajit Ovelil&#39;s Website
 </title>
 
     
@@ -129,19 +129,19 @@
     <article>
       <header>
         <div class="post-title">
-          <h1 class="title">NYC Electricity Demand Forecasting (WIP)</h1>
+          <h1 class="title">Intro to Electricity Demand Analysis Forecasting</h1>
         </div>
         <div class="post-meta">
           <div class="date">
             <span class="posted-on">
               <i class="fas fa-calendar"></i>
-              <time datetime='2023-03-01T00:00:00Z'>
-                March 1, 2023
+              <time datetime='2023-03-21T00:00:00Z'>
+                March 21, 2023
               </time>
             </span>
             <span class="reading-time">
               <i class="fas fa-clock"></i>
-              3-minute read
+              7-minute read
             </span>
           </div>
           
@@ -159,8 +159,8 @@
 </figure>
 
 <hr>
-<p>Electricity demand forecasting is a crucial task in the energy industry as it helps energy providers plan for supply and demand and avoid any potential shortage or surplus. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. 
-For this Project I wanted to analyze the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions:
+<p>Electricity demand forecasting is a crucial task in the energy industry as it helps energy providers plan for supply and demand and avoid any potential shortage or surplus. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. 
+For this Project I wanted to analyse the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions:
 What effect does date &amp; time play in influencing daily electricity demand in NYC?
 What are the Seasonal patterns in the data?</p>
 <ul>
@@ -169,23 +169,38 @@ What are the Seasonal patterns in the data?</p>
 How viable are traditional ML algorithms in forecasting Day Ahead Electricity Demand?
 How important are NYC Weather Variables as predictors to forecast energy\electricity demand?</li>
 </ul>
-<p>In this project, various machine learning algorithms such as Ridge, Lasso, and LightGBM have been used for day ahead forecasting of electricity demand over a time span of a year. The results of these algorithms have been back-tested and compared to determine the best approach for forecasting. 
-In addition to machine learning algorithms, visualizations have been used to understand the temporal patterns in electricity demand, including daily, weekly, monthly, and seasonal patterns. This comprehensive analysis of electricity demand will help in making informed decisions for the energy industry.</p>
+<p>In this project, various machine learning algorithms such as Ridge, Lasso, and LightGBM have been used for day ahead forecasting of electricity demand over a time span of a year. The results of these algorithms have been back-tested and compared to determine the best approach for forecasting. 
+In addition to machine learning algorithms, visualisations have been used to understand the temporal patterns in electricity demand, including daily, weekly, monthly, and seasonal patterns. This comprehensive analysis of electricity demand will help in making informed decisions for the energy industry.</p>
 <hr>
-<p>The Daily, Weekly and other seasonal patterns can be visualized by plotting the time series data grouped by different temporal categories. We can also use statistical techniques such as STL (Seasonal-Trend decomposition using LOESS) to extract various trend and seasonal patterns and then plot the same to understand the importance of the patterns. 
-We will first have a look at the seasonal or cyclic patterns that appear in the data that can be attributed to temporal features like time of day, day of the week, month, etc.</p>
-<p>The following Plots let us understand the electricity demand trends varying by hour and by month: 
+<h3 id="do-holidays-impactaffect-the-demand">Do holidays impact\affect the demand?</h3>
+<p>The following plot shows a line plot for a particular window around a holiday.
 <figure>
-    <img src="https://satyajitovelil.github.io/images/Hourly_Pattern.png"
-         alt="Hourly Trend"/> <figcaption>
-            <p>Hourly Trend</p>
+    <img src="https://satyajitovelil.github.io/images/holidays_line_plt.png"
+         alt="Window of Demand with Holidays"/> <figcaption>
+            <p>Window of Demand with Holidays</p>
         </figcaption>
 </figure>
 
+The red lines depict the endpoints of a holiday i.e. the beginning and end of a holiday.</p>
+<p>The above window is representative of all such windows in our entire dataset; no matter which window you see the occurrence of Holidays may not always coincide with the points in time where demand is highest or lowest for that particular window. You can also see that there are a few points higher or lower that occur outside of Holidays.</p>
+<p>We can also look at a few statistical tests that allow us to compare the association between two categorical variables or the association of categorical variables with continuous variables. Without going into the maths behind the statistical measures used below, we will go with an intuitive understanding of the measures:  The closer to 1 the higher the association. If it&rsquo;s closer to -1 that indicates an inverse association.</p>
+<p><strong>Measure of Association with Holidays</strong>
 <figure>
-    <img src="https://satyajitovelil.github.io/images/Monthly_Pattern.png"
-         alt="Monthly Trend"/> <figcaption>
-            <p>Monthly Trend</p>
+    <img src="https://satyajitovelil.github.io/images/holiday_stats.png"
+         alt="Measure of Association"/> <figcaption>
+            <p>Measure of Association</p>
+        </figcaption>
+</figure>
+</p>
+<p>The above values don&rsquo;t even go above 0.5. It&rsquo;s safe to say holidays are definitely not associated. The city that never sleeps.</p>
+<h3 id="what-are-the-seasonal-daily-hourly-monthly-etc-patterns-in-the-data">What are the Seasonal (daily, hourly, monthly, etc) patterns in the data?</h3>
+<p>We can understand patterns in data that change over time by grouping it into different categories such as days, weeks, or months. By doing this, we can create graphs that show us how the data changes over these time periods. We can also use a technique called STL to separate out different patterns, like trends and seasonal changes, from the data and create graphs to help us understand them better.</p>
+<p>When we look at these patterns, we may notice that some occur at certain times of the day, week, or month, which is what we call &ldquo;seasonal&rdquo; or &ldquo;cyclic&rdquo; patterns.</p>
+<p>The following Plots let us understand the electricity demand trends varying by hour and by month: 
+<figure>
+    <img src="https://satyajitovelil.github.io/images/hourly_violinplot.png"
+         alt="Hourly Trend"/> <figcaption>
+            <p>Hourly Trend</p>
         </figcaption>
 </figure>
 </p>
@@ -197,18 +212,112 @@ We will first have a look at the seasonal or cyclic patterns that appear in the 
         </figcaption>
 </figure>
 </p>
-<p>Interestingly enough each hour follows a certain pattern across different days grouped by month. 
+<p>In the graphs below the time series has been broken down using STL into trend, seasonality and residual components. 
+<em>Trend shows overall increase or decrease, seasonality shows repeating patterns, and residuals are the leftover differences between the actual data and the trend and seasonality components.</em>
+By analysing these components separately, we can identify patterns and trends in the data.</p>
+<p>This is what extracting daily seasonality would look like:
 <figure>
-    <img src="https://satyajitovelil.github.io/images/daily-all-hours-by-month.png"
-         alt="Daily Trend for all hours grouped by month"/> <figcaption>
-            <p>Daily Trend for all hours grouped by month</p>
+    <img src="https://satyajitovelil.github.io/images/daily_decomp.png"
+         alt="Daily Seasonality"/> <figcaption>
+            <p>Daily Seasonality</p>
+        </figcaption>
+</figure>
+
+We can clearly see some weekly seasonality has leaked into the residuals (green line designated as resid) plot above.</p>
+<p>If we look at the weekly decomposition we see that some amount of daily seasonality has leaked into our weekly seasonality plot below.
+<figure>
+    <img src="https://satyajitovelil.github.io/images/weekly_decomp.png"
+         alt="Weekly Seasonality"/> <figcaption>
+            <p>Weekly Seasonality</p>
         </figcaption>
 </figure>
 </p>
-<p>We can safely conclude that there are seasonal patterns that can be attributed to which month in the year it is. This can be due to winter and summer seasons. The hourly trend can also be attributed to the nature of a typical workday; From midnight to early hours of the morning the electricity consumed would be less. And as the day goes on, daily activities and/or business starts picking back up leading to more and more electricity being consumed.
-So far the plots above explain hourly trends, workday trends as well as monthly patterns. While it is fairly easy to build a forecasting model using this information alone. We still need an indicator or a variable that explains day to day variation. It&rsquo;s also evident that some of the variation can&rsquo;t simply be explained as being influenced by factors that closely change with temporal variables.</p>
-<p>A look at other variables that might influence the consumer behaviour when it comes to electricity would be required; we will be looking at weather.</p>
+<p>The plots above do however give us an understanding of the magnitude and pattern of seasonal components.</p>
+<p>From looking at the data, we can see that there are patterns in electricity consumption that are related to the time of year and time of day. For example, during the winter and summer months, we see changes in electricity usage. Additionally, electricity usage is lower during the early morning hours and increases as people start their daily activities and businesses open up.</p>
 <hr>
+<p>While current patterns can predict future electricity demand, weather and other factors can affect daily variations. Studying the relationship between weather and electricity consumption can improve our forecasting models. But first, we need to visualise the relationship between our target variable and other factors in the model.</p>
+<p><em>Note that we will be considering lags of values in cases where the value of such variables is not known in advance.</em></p>
+<p>A good way to look at such relationships is a heatmap of the Pearson&rsquo;s correlation statistic between demand and other variables.
+<figure>
+    <img src="https://satyajitovelil.github.io/images/corr_heatmap.png"
+         alt="Correlation Heatmap"/> <figcaption>
+            <p>Correlation Heatmap</p>
+        </figcaption>
+</figure>
+ 
+Naturally the demand will have the highest correlation with itself hence being assigned a value of 1.
+Demand &amp; Temperature lags are also ranked pretty high. The correlation unfortunately doesn&rsquo;t capture non-linear relationships.</p>
+<p>One very helpful tool is mutual info regression score that captures linear and non-linear relationships. I have plotted the score assigned to different variables with respect to demand below.
+<figure>
+    <img src="https://satyajitovelil.github.io/images/mir1.png"
+         alt="Mutual Info Regression Score"/> <figcaption>
+            <p>Mutual Info Regression Score</p>
+        </figcaption>
+</figure>
+</p>
+<hr>
+<h3 id="how-viable-are-sarima--traditional-ml-algorithms-to-forecast-electricity-demand">How viable are SARIMA &amp; traditional ML algorithms to forecast electricity demand?</h3>
+<p>To create the best possible forecasts, we used a variety of techniques to carefully select and engineer features. 
+<em>Feature engineering is the process of selecting and transforming relevant variables to improve the performance of machine learning models.</em>
+This included using trigonometric transformations to capture cyclic patterns in the date-time variables, as well as one-hot encoding to capture any period-related patterns. Additionally, we used lagged temperature variables to account for the fact that we couldn&rsquo;t include observed weather data for the next day. We selected the 24th through 29th lags of temperature based on their high correlation and mutual information scores.</p>
+<p>We also carefully chose our machine learning model. Overall, our combination of feature engineering and model selection allowed us to create accurate and reliable forecasts of energy demand.</p>
+<figure>
+    <img src="https://satyajitovelil.github.io/images/mir2_top.png"
+         alt="Mutual Info Regression Score"/> <figcaption>
+            <p>Mutual Info Regression Score</p>
+        </figcaption>
+</figure>
+
+<p>We divided the data into 3 parts: training, validation, and test.</p>
+<p>The SARIMA model performed well on the validation set with a MAPE (Mean Absolute Percentage Error) of 5.62 but not on the test set with a MAPE (Mean Absolute Percentage Error) of 7.24, indicating it may have overfit and that SARIMAX may be a better option since it can learn from exogenous features.</p>
+<figure>
+    <img src="https://satyajitovelil.github.io/images/sarima_backtest.png"
+         alt="SARIMA Results"/> <figcaption>
+            <p>SARIMA Results</p>
+        </figcaption>
+</figure>
+
+<p>After experimenting with different machine learning algorithms, we found that LightGBM was the most accurate for our use case. Random Forest also performed well but LightGBM outperformed it in terms of both accuracy and speed. ElasticNet, being a linear model, was not as effective in capturing the non-linear relationship between the weather and energy demand.</p>
+<p>We used autoregressive multi-step forecasting to backtest the models, and the LightGBM model achieved a Mean Absolute Percentage Error (MAPE) of 4.6 on the test set, which was slightly higher than the MAPE of 4.2 on the validation set.</p>
+<p>Overall, LightGBM proved to be the most effective algorithm for forecasting energy demand in this specific use case.</p>
+<hr>
+<h3 id="how-important-are-nyc-weather-variables-as-predictors-to-forecast-electricity-demand">How important are NYC Weather Variables as predictors to forecast electricity demand?</h3>
+<p>For the algorithms we used, we also tried an autoregressive multi-step direct forecasting strategy meaning a separate forecaster for each step was used in the backtesting. Below are the visualisations of the feature importances assigned by the models for each step.</p>
+<p>Note that only the top 10 most important features have been plotted.</p>
+<figure>
+    <img src="https://satyajitovelil.github.io/images/rf_feat_importance.png"
+         alt="Feature Importance"/> <figcaption>
+            <p>Feature Importance</p>
+        </figcaption>
+</figure>
+
+<figure>
+    <img src="https://satyajitovelil.github.io/images/lgbm_feat_importance.png"
+         alt="Feature Importance"/> <figcaption>
+            <p>Feature Importance</p>
+        </figcaption>
+</figure>
+
+<p>Both of the above graphs indicate that temperature lags have been given significant importance in the model. Notably, the lags of temperature were found to be as significant as the lags of the target variable, and the day and hour features also appear to be important predictors.</p>
+<p>If we build our LightGBM model with prediction intervals, this is what our forecast looks like:
+<figure>
+    <img src="https://satyajitovelil.github.io/images/lgbm_predictions.png"
+         alt="LightGBM Prediction Intervals"/> <figcaption>
+            <p>LightGBM Prediction Intervals</p>
+        </figcaption>
+</figure>
+</p>
+<p>Here&rsquo;s a look at our best forecaster&rsquo;s result:</p>
+<figure>
+    <img src="https://satyajitovelil.github.io/images/lgbm_direct_predictions.png"
+         alt="Best Forecaster"/> <figcaption>
+            <p>Best Forecaster</p>
+        </figcaption>
+</figure>
+
+<h2 id="the-way-forward">The Way Forward</h2>
+<p>To make more accurate predictions, we can use a model called SARIMAX that considers factors like weather and time of day. However, since these relationships can be complex &amp; non-linear, it&rsquo;s hard to get really good results.</p>
+<p>To improve predictions, we could add more information about the weather, such as rainfall and humidity, and use weather forecasts. For example, our model did not predict accurately on a rainy day (Aug 7th), so it&rsquo;s important to consider weather when making predictions.</p>
 
       </div>
 
@@ -227,11 +336,11 @@ So far the plots above explain hourly trends, workday trends as well as monthly 
         
         
           
+        
+          
             <li>
               <a href="https://satyajitovelil.github.io/posts/time-series-sarima/">Time Series Analysis Part 2: SARIMA</a>
             </li>
-          
-        
           
         
           
@@ -288,7 +397,7 @@ So far the plots above explain hourly trends, workday trends as well as monthly 
   <footer class="footer">
     <section class="container">
       
-        <p>A Blog|Project Portfolio Website powered by Hugo & guthub Pages</p>
+        <p>A Blog|Project Portfolio Website powered by Hugo & github Pages</p>
       
       
         ©
