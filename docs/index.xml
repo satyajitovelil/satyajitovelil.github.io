@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Satyajit Ovelil&#39;s Website</title>
+    <title>Satyajit Ovelil</title>
     <link>https://satyajitovelil.github.io/</link>
-    <description>Recent content on Satyajit Ovelil&#39;s Website</description>
+    <description>Recent content on Satyajit Ovelil</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en</language>
     <lastBuildDate>Tue, 21 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://satyajitovelil.github.io/index.xml" rel="self" type="application/rss+xml" />
@@ -84,8 +84,7 @@ pwd </description>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>https://satyajitovelil.github.io/projects/</guid>
-      <description>NYC Electricity Demand Forecasting Summary of the project For this Project I wanted to analyze the NYC electricity demand enriched using NOAA weather data for NYC &amp;amp; answer the following questions:
- What effect does date &amp;amp; time play in influencing daily electricity demand in NYC?  What are the Seasonal (daily, hourly, monthly, etc) patterns in the data? Do holidays or events play any role?   How viable are traditional ML algorithms in forecasting Day Ahead Elctricity Demand?</description>
+      <description>Bertelsmann Arvato Customer Segmentation and Prediction Summary of the project The motivation behind this project is to use unsupervised learning techniques to uncover the relationship between the demographics of the company&amp;rsquo;s existing customers and the general population of Germany. This will enable the identification of which parts of the population are more likely to be customers of the mail-order company and which are less so. The next step involves building a prediction model using demographic information from individuals that were part of a mail-order marketing campiagn to decide whether or not they would succesfully convert into customers.</description>
     </item>
     
     <item>
