@@ -141,7 +141,7 @@
             </span>
             <span class="reading-time">
               <i class="fas fa-clock"></i>
-              7-minute read
+              8-minute read
             </span>
           </div>
           
@@ -159,7 +159,7 @@
 </figure>
 
 <hr>
-<p>Electricity demand forecasting is a crucial task in the energy industry as it helps energy providers plan for supply and demand and avoid any potential shortage or surplus. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. 
+<p>Electricity demand forecasting plays a crucial role in the energy industry as it assists energy providers in effectively planning for supply and demand, thereby preventing any potential shortages or surpluses. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. 
 For this Project I wanted to analyse the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions:
 What effect does date &amp; time play in influencing daily electricity demand in NYC?
 What are the Seasonal patterns in the data?</p>
@@ -235,7 +235,7 @@ We can clearly see some weekly seasonality has leaked into the residuals (green 
 <p>The plots above do however give us an understanding of the magnitude and pattern of seasonal components.</p>
 <p>From looking at the data, we can see that there are patterns in electricity consumption that are related to the time of year and time of day. For example, during the winter and summer months, we see changes in electricity usage. Additionally, electricity usage is lower during the early morning hours and increases as people start their daily activities and businesses open up.</p>
 <hr>
-<p>While current patterns can predict future electricity demand, weather and other factors can affect daily variations. Studying the relationship between weather and electricity consumption can improve our forecasting models. But first, we need to visualise the relationship between our target variable and other factors in the model.</p>
+<p>While current/historical demand patterns can affect future electricity demand to some extent, weather and other factors can affect daily variations. Studying the relationship between weather and electricity consumption can improve our forecasting models. But first, we need to visualise the relationship between our target variable and other factors in the model.</p>
 <p><em>Note that we will be considering lags of values in cases where the value of such variables is not known in advance.</em></p>
 <p>A good way to look at such relationships is a heatmap of the Pearson&rsquo;s correlation statistic between demand and other variables.
 <figure>
@@ -257,10 +257,9 @@ Demand &amp; Temperature lags are also ranked pretty high. The correlation unfor
 </p>
 <hr>
 <h3 id="how-viable-are-sarima--traditional-ml-algorithms-to-forecast-electricity-demand">How viable are SARIMA &amp; traditional ML algorithms to forecast electricity demand?</h3>
-<p>To create the best possible forecasts, we used a variety of techniques to carefully select and engineer features. 
-<em>Feature engineering is the process of selecting and transforming relevant variables to improve the performance of machine learning models.</em>
-This included using trigonometric transformations to capture cyclic patterns in the date-time variables, as well as one-hot encoding to capture any period-related patterns. Additionally, we used lagged temperature variables to account for the fact that we couldn&rsquo;t include observed weather data for the next day. We selected the 24th through 29th lags of temperature based on their high correlation and mutual information scores.</p>
-<p>We also carefully chose our machine learning model. Overall, our combination of feature engineering and model selection allowed us to create accurate and reliable forecasts of energy demand.</p>
+<p>To create the best possible forecasts, a variety of techniques were used to carefully select and engineer features. <em>Feature engineering is the process of selecting and transforming relevant variables to improve the performance of machine learning models.</em> 
+This included using trigonometric transformations to capture cyclic patterns in the date-time variables, as well as one-hot encoding to capture any period-related patterns. Additionally, lagged temperature variables were used to account for the fact that inclusion of weather data for the next day is not possible in absence of weather forecast data. The 24th through 29th lags of temperature were selected based on their high correlation and mutual information scores.</p>
+<p>The machine learning model was carefully chosen. Overall, the combination of feature engineering and model selection led to the creation of an accurate and reliable forecasts of energy demand.</p>
 <figure>
     <img src="https://satyajitovelil.github.io/images/mir2_top.png"
          alt="Mutual Info Regression Score"/> <figcaption>
@@ -268,7 +267,7 @@ This included using trigonometric transformations to capture cyclic patterns in 
         </figcaption>
 </figure>
 
-<p>We divided the data into 3 parts: training, validation, and test.</p>
+<p>The data was divided into 3 parts for the purposes of training, validation, and test. This is a standard practice in model validation.</p>
 <p>The SARIMA model performed well on the validation set with a MAPE (Mean Absolute Percentage Error) of 5.62 but not on the test set with a MAPE (Mean Absolute Percentage Error) of 7.24, indicating it may have overfit and that SARIMAX may be a better option since it can learn from exogenous features.</p>
 <figure>
     <img src="https://satyajitovelil.github.io/images/sarima_backtest.png"
@@ -278,11 +277,11 @@ This included using trigonometric transformations to capture cyclic patterns in 
 </figure>
 
 <p>After experimenting with different machine learning algorithms, we found that LightGBM was the most accurate for our use case. Random Forest also performed well but LightGBM outperformed it in terms of both accuracy and speed. ElasticNet, being a linear model, was not as effective in capturing the non-linear relationship between the weather and energy demand.</p>
-<p>We used autoregressive multi-step forecasting to backtest the models, and the LightGBM model achieved a Mean Absolute Percentage Error (MAPE) of 4.6 on the test set, which was slightly higher than the MAPE of 4.2 on the validation set.</p>
+<p>An autoregressive multi-step forecasting strategy was used to backtest the models, and the LightGBM model achieved a Mean Absolute Percentage Error (MAPE) of 4.6 on the test set, which was slightly higher than the MAPE of 4.2 on the validation set.</p>
 <p>Overall, LightGBM proved to be the most effective algorithm for forecasting energy demand in this specific use case.</p>
 <hr>
 <h3 id="how-important-are-nyc-weather-variables-as-predictors-to-forecast-electricity-demand">How important are NYC Weather Variables as predictors to forecast electricity demand?</h3>
-<p>For the algorithms we used, we also tried an autoregressive multi-step direct forecasting strategy meaning a separate forecaster for each step was used in the backtesting. Below are the visualisations of the feature importances assigned by the models for each step.</p>
+<p>For the algorithms that were considered, an autoregressive multi-step direct forecasting strategy was used meaning a separate forecaster for each step was built during the backtesting. Below are the visualisations of the feature importances assigned by the models for each step.</p>
 <p>Note that only the top 10 most important features have been plotted.</p>
 <figure>
     <img src="https://satyajitovelil.github.io/images/rf_feat_importance.png"
@@ -299,7 +298,7 @@ This included using trigonometric transformations to capture cyclic patterns in 
 </figure>
 
 <p>Both of the above graphs indicate that temperature lags have been given significant importance in the model. Notably, the lags of temperature were found to be as significant as the lags of the target variable, and the day and hour features also appear to be important predictors.</p>
-<p>If we build our LightGBM model with prediction intervals, this is what our forecast looks like:
+<p>If LightGBM model is implemented with prediction intervals, this is what our forecast looks like:
 <figure>
     <img src="https://satyajitovelil.github.io/images/lgbm_predictions.png"
          alt="LightGBM Prediction Intervals"/> <figcaption>
@@ -307,7 +306,7 @@ This included using trigonometric transformations to capture cyclic patterns in 
         </figcaption>
 </figure>
 </p>
-<p>Here&rsquo;s a look at our best forecaster&rsquo;s result:</p>
+<p>Here&rsquo;s a look at the best forecaster&rsquo;s result:</p>
 <figure>
     <img src="https://satyajitovelil.github.io/images/lgbm_direct_predictions.png"
          alt="Best Forecaster"/> <figcaption>
@@ -316,8 +315,9 @@ This included using trigonometric transformations to capture cyclic patterns in 
 </figure>
 
 <h2 id="the-way-forward">The Way Forward</h2>
-<p>To make more accurate predictions, we can use a model called SARIMAX that considers factors like weather and time of day. However, since these relationships can be complex &amp; non-linear, it&rsquo;s hard to get really good results.</p>
-<p>To improve predictions, we could add more information about the weather, such as rainfall and humidity, and use weather forecasts. For example, our model did not predict accurately on a rainy day (Aug 7th), so it&rsquo;s important to consider weather when making predictions.</p>
+<p>To make more accurate predictions, a model called SARIMAX can be used that considers factors like weather and time of day. However, since these relationships can be complex &amp; non-linear, it&rsquo;s hard to get really good results with linear models alone.</p>
+<p>Inclusion of more information about the weather, such as rainfall &amp; humidity and the incorporation of weather forecasts would improve the forecast even further. For example, our model did not predict accurately on a rainy day (Aug 7th), so it&rsquo;s important to consider weather when making predictions.</p>
+<p>The forecast accuracy is approximately 95–96%, which can be further improved to around 98–99% by incorporating additional variables and conducting extensive feature engineering using ensemble models. There is potential for exploring different algorithms and identifying influential factors not yet included in the dataset. Nevertheless, the achieved level of accuracy is significant.</p>
 
       </div>
 

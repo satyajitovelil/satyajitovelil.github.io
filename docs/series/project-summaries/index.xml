@@ -14,7 +14,7 @@
       
       <guid>https://satyajitovelil.github.io/posts/nyc-electricity-demand-forecasting/</guid>
       <description>NYC Night Lights
-   Electricity demand forecasting is a crucial task in the energy industry as it helps energy providers plan for supply and demand and avoid any potential shortage or surplus. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. For this Project I wanted to analyse the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions: What effect does date &amp;amp; time play in influencing daily electricity demand in NYC?</description>
+   Electricity demand forecasting plays a crucial role in the energy industry as it assists energy providers in effectively planning for supply and demand, thereby preventing any potential shortages or surpluses. Accurate forecasting of electricity demand can lead to better management of resources, improved operational efficiency and ultimately, cost savings. For this Project I wanted to analyse the NYC electricity demand enriched using NOAA weather data for NYC whether I could answer the following questions: What effect does date &amp;amp; time play in influencing daily electricity demand in NYC?</description>
     </item>
     
   </channel>
